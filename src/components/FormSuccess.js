@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 function FormSuccess({ text }) {
-  const [show, setShow] = useState(true);
+  const [show] = useState(true);
 
   if (show) {
     return (

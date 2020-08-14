@@ -1,33 +1,23 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, { useState, createContext } from "react";
 import { useHistory } from "react-router";
 
 const AuthContext = createContext();
 const { Provider } = AuthContext;
 
 const AuthProvider = ({ children }) => {
+  const token = localStorage.getItem("token");
+  const expiresAt = localStorage.getItem("expiresAt");
+  const userInfo = localStorage.getItem("userInfo");
+
   const history = useHistory();
   const [authState, setAuthState] = useState({
-    token: "",
-    expiresAt: "",
-    userInfo: {},
+    token: token,
+    expiresAt: expiresAt,
+    userInfo: userInfo ? JSON.parse(userInfo) : {},
   });
 
-  useEffect(() => {
-    const token = null;
-    const expiresAt = localStorage.getItem("expiresAt");
-    const userInfo = localStorage.getItem("userInfo")
-      ? JSON.parse(localStorage.getItem("userInfo"))
-      : {};
-
-    setAuthState({
-      token,
-      expiresAt,
-      userInfo,
-    });
-  }, [setAuthState]);
-
   const setAuthInfo = ({ token, expiresAt, userInfo }) => {
-    // localStorage.setItem("token", token);
+    localStorage.setItem("token", token);
     localStorage.setItem("expiresAt", expiresAt);
     localStorage.setItem("userInfo", JSON.stringify(userInfo));
     setAuthState({
@@ -38,7 +28,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    // localStorage.removeItem("token");
+    localStorage.removeItem("token");
     localStorage.removeItem("expiresAt");
     localStorage.removeItem("userInfo");
     // Clear Auth state
