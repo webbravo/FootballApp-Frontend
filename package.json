@@ -54,5 +54,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://tendollarpredict.herokuapp.com/"
+  "proxy": "https://tendollarpredict.herokuapp.com:6700/"
 }
