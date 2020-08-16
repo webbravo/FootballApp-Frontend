@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFutbol } from "@fortawesome/free-solid-svg-icons";
+import { EventContext } from "../../context/EventContext";
+import { publicFetch } from "../../util/fetch";
+import { useEffect } from "react";
 
-function EventList({ text }) {
+function EventList() {
+  const eventContext = useContext(EventContext);
   return (
     <div className="sports-list">
-      <EventTitle />
-
-      <SingleEventBox />
-      <SingleEventBox />
-      <SingleEventBox />
+      {eventContext.leagues.map((league, index, arr) => {
+        return (
+          <>
+            <EventTitle key={index} league={league} />
+            <SingleEventBox league_id={league.league_id} />
+          </>
+        );
+      })}
     </div>
   );
 }
@@ -18,17 +25,28 @@ function EventList({ text }) {
 const EventTitle = ({ league }) => {
   return (
     <h4 className="title">
-      <img
-        width="50"
-        src="https://media.api-football.com/leagues/2.png"
-        alt="English Premier League"
-      />
-      Premier League
+      <img width="50" src={league.logo} alt={league.name} />
+      {" " + league.name}
     </h4>
   );
 };
 
-const SingleEventBox = () => {
+const SingleEventBox = ({ league_id }) => {
+  // TODO: Move Get
+
+  const [events, setEvent] = useState([]);
+
+  useEffect(() => {
+    async function fetchEventData() {
+      const { data } = await publicFetch.get(
+        `/rapidapi/odds/league/${league_id}`
+      );
+      setEvent(data);
+      console.log(data);
+    }
+    fetchEventData();
+  }, [league_id]);
+
   return (
     <div className="single-sport-box">
       <div className="part-icon">
@@ -39,7 +57,7 @@ const SingleEventBox = () => {
 
       <MatchesBox outcome={[]} />
 
-      <MoreOutcome outcome={[]} />
+      <MoreOutcome events={events.results} />
     </div>
   );
 };
@@ -90,12 +108,10 @@ const MatchesBox = ({ outcome }) => {
   );
 };
 
-const MoreOutcome = ({ outcome }) => {
+const MoreOutcome = ({ events }) => {
   return (
     <div className="part-bonus">
-      <span className="bonus-number">
-        {outcome.length > 1 ? `+${outcome.length}` : "+336"}
-      </span>
+      <span className="bonus-number">{events > 1 ? `+${events}` : "0"}</span>
     </div>
   );
 };

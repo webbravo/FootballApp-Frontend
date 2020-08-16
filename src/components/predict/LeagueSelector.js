@@ -1,22 +1,22 @@
-import React from "react";
-import { publicFetch } from "../../util/fetch";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useContext } from "react";
+import { EventContext } from "../../context/EventContext";
 
 // import { Form, Formik } from "formik"; country
 
 const FormSelectorCountry = ({ countries, handleChange }) => {
-  const [defaultCountry, setDefaultCountry] = useState("England");
+  const { defaultCountry } = useContext(EventContext);
+
   return (
     <div className="col-xl-3 col-lg-3 col-md-3">
       <div className="form-group">
         <select
           className="form-control"
           defaultValue={defaultCountry}
+          value={defaultCountry}
           onChange={handleChange}
         >
           {countries.map((country, index, arr) => (
-            <option value={country.code} key={index}>
+            <option value={country.country} key={index}>
               {country.country}
             </option>
           ))}
@@ -57,21 +57,7 @@ const FormSelector = ({ options }) => {
   );
 };
 
-const LeagueSelector = ({ handleChange }) => {
-  const [countries, setCountries] = useState([]);
-  const [leagues, setLeagues] = useState([]);
-
-  useEffect(() => {
-    async function fetchCountryData() {
-      const { data } = await publicFetch.get("/rapidapi/countries");
-      setCountries(data.countries);
-      setLeagues(data.leagues);
-    }
-    fetchCountryData();
-  }, []);
-
-  console.log(leagues);
-
+const LeagueSelector = ({ leagues, countries }) => {
   const getSelectedCountry = (option) => {
     console.log(option);
   };
