@@ -16,8 +16,8 @@ const Note = () => {
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-xl-10 col-lg-10">
-            10D Predict is operating under the 10dollar predict Limited, is the
-            provider of this website, Licensed by the Nigerian Betting and
+            10 D Predict is operating under the 10 dollar predict Limited, is
+            the provider of this website, Licensed by the Nigerian Betting and
             Lotteries commmission.
           </div>
         </div>
@@ -33,7 +33,7 @@ const Copyright = () => {
         <div className="row justify-content-between">
           <div className="col-xl-5 col-md-6 col-lg-6 d-lg-flex d-lg-flex d-block align-items-center">
             <p className="copyright-text">
-              <Hyperlink to="#" text="10Dollar predict" />© 2020. PRIVACY POLICY
+              <Hyperlink to="#" text="10Dollar predict" /> ©2020. PRIVACY POLICY
             </p>
           </div>
           <div className="text-right col-md-6 col-xl-4 col-lg-6 d-xl-flex d-lg-flex d-block align-items-center">
@@ -64,7 +64,7 @@ const Footer = () => {
             </div>
             <div className="col-xl-4 col-lg-4 col-md-6">
               <div className="useful-links">
-                <h3>About Us</h3>
+                <h3> About Us </h3>
                 <p className="text-white">
                   10 Dollar Predict offers you all the best online prediction
                   from every corner of the planet with thousands of online
@@ -74,6 +74,7 @@ const Footer = () => {
             </div>
             <div className="col-xl-4 col-lg-3 col-md-3">
               <div className="about-widget">
+                <h3> Connect with Us </h3>
                 <div className="social">
                   <ul>
                     <li>
@@ -99,8 +100,8 @@ const Footer = () => {
                         <img src="assets/img/svg/email.svg" alt="" />
                       </span>
                       <span className="text">
-                        <span className="title">Mail Us</span>
-                        <span className="descr">don't@reply.com</span>
+                        <span className="title"> Mail Us </span>
+                        <span className="descr"> don 't@reply.com</span>
                       </span>
                     </li>
                     <li>
@@ -108,8 +109,8 @@ const Footer = () => {
                         <img src="assets/img/svg/phone-call.svg" alt="" />
                       </span>
                       <span className="text">
-                        <span className="title">Get In Touch</span>
-                        <span className="descr">+88 015 00 00 00</span>
+                        <span className="title"> Get In Touch </span>
+                        <span className="descr"> +88 015 00 00 00 </span>
                       </span>
                     </li>
                   </ul>
@@ -156,7 +157,6 @@ const Footer = () => {
                           alt="Zenith Bank Logo"
                         />
                       </div>
-
                       <div className="single-method">
                         <img
                           src="https://www.mutiuokediran.com/blog/wp-content/uploads/2015/05/GTBank.jpg"

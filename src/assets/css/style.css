@@ -1501,6 +1501,17 @@ ul {
   margin-right: 10px;
 }
 
+.betting-table .bet-tab-content .tab-pane .sports-list .single-sport-box .part-match .single-place-to-bet a.active {
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+  font-style: italic;
+  transition: all 1.2s;
+}
+
+
+
+
 .betting-table .bet-tab-content .tab-pane .sports-list .single-sport-box .part-match .single-place-to-bet:last-child {
   margin-right: 0;
 }
@@ -1567,11 +1578,11 @@ ul {
   font-weight: 400;
 }
 
-.betting-table .bet-tab-content .tab-pane .sports-list .single-sport-box .part-bnonus {
+.betting-table .bet-tab-content .tab-pane .sports-list .single-sport-box .part-bonus {
   width: 100px;
 }
 
-.betting-table .bet-tab-content .tab-pane .sports-list .single-sport-box .part-bnonus .bonus-number {
+.betting-table .bet-tab-content .tab-pane .sports-list .single-sport-box .part-bonus .bonus-number {
   display: inline-block;
   position: relative;
   text-transform: uppercase;
@@ -1583,7 +1594,7 @@ ul {
   line-height: 52px;
 }
 
-.betting-table .bet-tab-content .tab-pane .sports-list .single-sport-box .part-bnonus .bonus-number:after {
+.betting-table .bet-tab-content .tab-pane .sports-list .single-sport-box .part-bonus .bonus-number:after {
   content: ">";
   margin-left: 6px;
   text-transform: uppercase;

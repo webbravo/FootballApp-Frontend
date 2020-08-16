@@ -16,7 +16,7 @@ const FetchProvider = ({ children }) => {
     };
 
     getCsrfToken();
-  }, []);
+  });
 
   return (
     <Provider
