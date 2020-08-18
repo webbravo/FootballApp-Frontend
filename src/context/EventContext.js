@@ -1,23 +1,25 @@
-import React, { useState, createContext, useEffect } from "react";
-import { publicFetch } from "../util/fetch";
+import React, { useState, createContext, useEffect, useContext } from "react";
+import { FetchContext } from "../context/FetchContext";
 
 const EventContext = createContext();
 const { Provider } = EventContext;
 
 const EventProvider = ({ children }) => {
+  const { authAxios } = useContext(FetchContext);
+
   const [countries, setCountries] = useState([]);
   const [leagues, setLeagues] = useState([]);
-  const [event, setEvent] = useState([]);
-  const [defaultCountry, setDefaultCountries] = useState("England");
+  const [event] = useState([]);
+  const [defaultCountry] = useState("England");
 
   useEffect(() => {
     async function fetchCountryData() {
-      const { data } = await publicFetch.get("/rapidapi/countries");
+      const { data } = await authAxios.get("/rapidapi/countries");
       setCountries(data.countries);
       setLeagues(data.leagues);
     }
     fetchCountryData();
-  }, []);
+  }, [authAxios]);
 
   return (
     <Provider

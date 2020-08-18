@@ -2,13 +2,14 @@ import React, { useState, useContext } from "react";
 import Hyperlink from "./common/Hyperlink";
 import ButtonFilled from "./common/ButtonFilled";
 import { Form, Formik } from "formik";
-import { AuthContext } from "../context/AuthContext";
+import {} from "../context/AuthContext";
 import { publicFetch } from "./../util/fetch";
 import { Redirect } from "react-router-dom";
 import * as Yup from "yup";
 import FormInput from "./../components/FormInput";
 import FormSuccess from "./FormSuccess";
 import FormError from "./FormError";
+import { AuthContext } from "../context/AuthContext";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().required("Email is required"),
@@ -25,7 +26,10 @@ const Login = () => {
   const submitCredentials = async (credentials) => {
     try {
       setLoginLoading(true);
-      const { data } = await publicFetch.post("/authenticate", credentials);
+      const { data } = await publicFetch.post(
+        "/users/authenticate",
+        credentials
+      );
       authContext.setAuthState(data);
       setLoginSuccess(data.message);
       setLoginError("");
