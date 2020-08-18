@@ -16,7 +16,7 @@ const FetchProvider = ({ children }) => {
     };
 
     getCsrfToken();
-  });
+  }, [authAxios]);
 
   return (
     <Provider
