@@ -1,10 +1,12 @@
-import React, { Suspense, useContext } from "react";
+import React, { lazy, Suspense, useContext } from "react";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import FourOFour from "./pages/FourOFour";
 import Home from "./pages/Home";
-import Predict from "./pages/Predict";
-import LiveFeed from "./pages/LiveFeed";
+import "./App.css";
+import { AuthProvider, AuthContext } from "./context/AuthContext";
+import { FetchProvider } from "./context/FetchContext";
+import { EventProvider } from "./context/EventContext";
 
 import {
   BrowserRouter as Router,
@@ -13,9 +15,8 @@ import {
   Redirect,
 } from "react-router-dom";
 
-import "./App.css";
-import { AuthProvider, AuthContext } from "./context/AuthContext";
-import { FetchProvider } from "./context/FetchContext";
+const Predict = lazy(() => import("./pages/Predict"));
+const LiveFeed = lazy(() => import("./pages/LiveFeed"));
 
 const AuthenticatedRoute = ({ children, ...rest }) => {
   const authContext = useContext(AuthContext);
@@ -62,7 +63,9 @@ function App() {
     <Router>
       <AuthProvider>
         <FetchProvider>
-          <AppRoutes />
+          <EventProvider>
+            <AppRoutes />
+          </EventProvider>
         </FetchProvider>
       </AuthProvider>
     </Router>
