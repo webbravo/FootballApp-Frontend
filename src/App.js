@@ -45,7 +45,9 @@ const AppRoutes = () => {
           <LiveFeed />
         </Route>
         <AuthenticatedRoute exact path="/predict">
-          <Predict />
+          <EventProvider>
+            <Predict />
+          </EventProvider>
         </AuthenticatedRoute>
         <Route exact path="/">
           <Home />
@@ -63,9 +65,7 @@ function App() {
     <Router>
       <AuthProvider>
         <FetchProvider>
-          <EventProvider>
-            <AppRoutes />
-          </EventProvider>
+          <AppRoutes />
         </FetchProvider>
       </AuthProvider>
     </Router>
