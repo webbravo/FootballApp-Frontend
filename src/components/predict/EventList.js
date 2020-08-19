@@ -13,10 +13,10 @@ function EventList() {
     <div className="sports-list">
       {eventContext.leagues.map((league, index, arr) => {
         return (
-          <>
+          <div key={index}>
             <EventTitle key={index} league={league} />
             <SingleEventBox league_id={league.league_id} />
-          </>
+          </div>
         );
       })}
     </div>

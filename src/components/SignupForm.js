@@ -16,7 +16,12 @@ const LoginSchema = Yup.object().shape({
   firstName: Yup.string().required("First Name is required"),
   lastName: Yup.string().required("Last Name is required"),
   email: Yup.string().required("Email is required"),
+  phone: Yup.string().required("Phone is required"),
   password: Yup.string().required("Password is required"),
+  passwordConfirmation: Yup.string().oneOf(
+    [Yup.ref("password"), null],
+    "⬆  Both password need to be the same "
+  ),
 });
 
 const SignupForm = () => {
@@ -29,10 +34,7 @@ const SignupForm = () => {
   const submitCredentials = async (credentials) => {
     try {
       setLoginLoading(true);
-      const { data } = await publicFetch.post(
-        "/users/authenticate",
-        credentials
-      );
+      const { data } = await publicFetch.post("/users/signup", credentials);
       authContext.setAuthState(data);
       setLoginSuccess(data.message);
       setLoginError("");
@@ -51,7 +53,7 @@ const SignupForm = () => {
 
   return (
     <>
-      {redirectOnLogin && <Redirect to="/predict" />}
+      {redirectOnLogin && <Redirect to="/login" />}
 
       <div className="register">
         <div className="container">
@@ -119,6 +121,15 @@ const SignupForm = () => {
                           />
                         </div>
 
+                        <div className="input-spacing">
+                          <FormInput
+                            ariaLabel="Phone"
+                            name="phone"
+                            type="text"
+                            placeholder="WHATS APP NUMBER"
+                          />
+                        </div>
+
                         <p>
                           All new passwords must contain at least 8 characters.
                         </p>
@@ -131,10 +142,19 @@ const SignupForm = () => {
                             placeholder="PASSWORD"
                           />
                         </div>
+                        <div className="input-spacing">
+                          <FormInput
+                            ariaLabel="password Confirmation"
+                            name="passwordConfirmation"
+                            type="password"
+                            placeholder="CONFIRM PASSWORD"
+                          />
+                        </div>
+
                         <p>
                           By clicking "SIGN UP", you confirm that you have read
                           and understood the
-                          <strong>10dollarPredict.com</strong>
+                          <strong> 10dollarPredict.com</strong>
                           <Hyperlink
                             to="/privacy-policy"
                             text=" T&C, Privacy & Cookie Policy"

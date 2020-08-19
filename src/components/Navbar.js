@@ -57,11 +57,11 @@ const Nav = () => {
           {authContext.isAuthenticated() ? (
             <NavItemContainer>
               {navItems.map((navItem, i) => (
-                <>
+                <div key={i}>
                   {navItem.allowedRoles.includes(role) && (
                     <NavItem key={i} navItem={navItem} />
                   )}
-                </>
+                </div>
               ))}
             </NavItemContainer>
           ) : (
@@ -78,7 +78,7 @@ const Navbar = () => {
     <div id="navbar" className="bg-black header-bottom">
       <div className="container">
         <div className="row">
-          <NavLogo key={1313} /> <Nav key={1309} />
+          <NavLogo /> <Nav />
         </div>
       </div>
     </div>
