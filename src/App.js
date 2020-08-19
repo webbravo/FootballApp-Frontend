@@ -14,6 +14,7 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
+import Preloader from "./components/common/Preloader";
 
 const Predict = lazy(() => import("./pages/Predict"));
 const LiveFeed = lazy(() => import("./pages/LiveFeed"));
@@ -33,7 +34,7 @@ const AuthenticatedRoute = ({ children, ...rest }) => {
 
 const AppRoutes = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Preloader />}>
       <Switch>
         <Route path="/login">
           <Login />

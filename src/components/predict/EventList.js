@@ -48,7 +48,7 @@ const SingleEventBox = ({ league_id }) => {
       console.log(data);
     }
     fetchEventData();
-  }, [league_id]);
+  }, [authAxios, league_id]);
 
   return (
     <div className="single-sport-box">
