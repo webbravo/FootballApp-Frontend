@@ -54,15 +54,19 @@ const Nav = () => {
     <div className="col-xl-9 col-lg-9">
       <div className="mainmenu">
         <nav className="navbar navbar-expand-lg">
-          <NavItemContainer>
-            {navItems.map((navItem, i) => (
-              <>
-                {navItem.allowedRoles.includes(role) && (
-                  <NavItem key={i} navItem={navItem} />
-                )}
-              </>
-            ))}
-          </NavItemContainer>
+          {authContext.isAuthenticated() ? (
+            <NavItemContainer>
+              {navItems.map((navItem, i) => (
+                <>
+                  {navItem.allowedRoles.includes(role) && (
+                    <NavItem key={i} navItem={navItem} />
+                  )}
+                </>
+              ))}
+            </NavItemContainer>
+          ) : (
+            ""
+          )}
         </nav>
       </div>
     </div>
