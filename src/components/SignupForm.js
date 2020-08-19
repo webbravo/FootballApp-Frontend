@@ -19,7 +19,7 @@ const LoginSchema = Yup.object().shape({
   password: Yup.string().required("Password is required"),
 });
 
-const Login = () => {
+const SignupForm = () => {
   const authContext = useContext(AuthContext);
   const [loginSuccess, setLoginSuccess] = useState();
   const [loginError, setLoginError] = useState();
@@ -170,4 +170,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignupForm;
