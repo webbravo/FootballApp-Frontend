@@ -22,14 +22,14 @@ const FetchProvider = ({ children }) => {
     }
   );
 
-  useEffect(() => {
-    const getCsrfToken = async () => {
-      const { data } = await authAxios.get("/csrf-token");
-      authAxios.defaults.headers["X-CSRF-Token"] = data.csrfToken;
-    };
+  // useEffect(() => {
+  //   const getCsrfToken = async () => {
+  //     const { data } = await authAxios.get("/api/csrf-token");
+  //     authAxios.defaults.headers["X-CSRF-Token"] = data.csrfToken;
+  //   };
 
-    getCsrfToken();
-  }, [authAxios]);
+  //   getCsrfToken();
+  // }, [authAxios]);
 
   return (
     <Provider
