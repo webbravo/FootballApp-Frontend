@@ -4,9 +4,10 @@ import { faCalendar, faClock } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
-const NavbarTop = ({ lang, userInfo }) => {
+const NavbarTop = ({ lang }) => {
   const authContext = useContext(AuthContext);
-  const { firstName } = authContext.authState.userInfo;
+  const { authState } = authContext;
+  const { firstName } = authState.userInfo;
 
   return (
     <div className="header-top">
@@ -48,7 +49,7 @@ const NavbarTop = ({ lang, userInfo }) => {
                   </select>
                 </li>
                 <li>
-                  {firstName ? (
+                  {authContext.isAuthenticated() ? (
                     <Link className="link" to="/bet-slip">
                       <svg
                         aria-hidden="true"
@@ -75,7 +76,7 @@ const NavbarTop = ({ lang, userInfo }) => {
                   )}
                 </li>
                 <li>
-                  {firstName ? (
+                  {authContext.isAuthenticated() ? (
                     <Link className="link" to="/profile">
                       <svg
                         aria-hidden="true"
