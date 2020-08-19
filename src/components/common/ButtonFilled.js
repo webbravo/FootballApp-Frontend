@@ -5,12 +5,12 @@ import classNames from "classnames";
 
 const ButtonFilled = ({ type, text, size, loading, onClick }) => {
   const classes = classNames({
-    "bet-btn base-btn-bet": size === "lg",
+    "bet-btn base-btn-bet ": size === "lg",
   });
   return (
     <button
       type={type}
-      className={classes}
+      className={(classes, "next")}
       disabled={loading}
       onClick={onClick}
     >
