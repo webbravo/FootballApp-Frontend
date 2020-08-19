@@ -1,6 +1,7 @@
 import React, { lazy, Suspense, useContext } from "react";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Profile from "./pages/Profile";
 import FourOFour from "./pages/FourOFour";
 import Home from "./pages/Home";
 import "./App.css";
@@ -49,6 +50,10 @@ const AppRoutes = () => {
           <EventProvider>
             <Predict />
           </EventProvider>
+        </AuthenticatedRoute>
+
+        <AuthenticatedRoute exact path="/profile">
+          <Profile />
         </AuthenticatedRoute>
         <Route exact path="/">
           <Home />

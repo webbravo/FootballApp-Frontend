@@ -3,7 +3,7 @@ import loadIcon from "../../assets/img/preloader.gif";
 
 const Preloader = () => {
   return (
-    <div class="preloader">
+    <div className="preloader">
       <img src={loadIcon} alt="" />
     </div>
   );
