@@ -77,7 +77,7 @@ const Login = () => {
                       <FormInput
                         ariaLabel="Email"
                         name="email"
-                        type="text"
+                        type="email"
                         placeholder="Enter Your Mail"
                       />
                       <FormInput

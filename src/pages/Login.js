@@ -1,5 +1,5 @@
 import React from "react";
-import LoginForm from "../components/Login";
+import LoginForm from "../components/LoginForm";
 import AppContainer from "../components/AppContainer";
 
 const Login = () => {

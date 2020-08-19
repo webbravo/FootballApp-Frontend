@@ -1,5 +1,5 @@
-import React from "react";
-// import { AuthContext } from "../context/AuthContext";
+import React, { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import NavLogo from "./NavLogo";
 import { Link } from "react-router-dom";
 
@@ -48,15 +48,19 @@ const NavItemContainer = ({ children }) => (
 );
 
 const Nav = () => {
-  // const authContext = useContext(AuthContext);
-  // const { role } = authContext.authState.userInfo;
+  const authContext = useContext(AuthContext);
+  const { role } = authContext.authState.userInfo;
   return (
     <div className="col-xl-9 col-lg-9">
       <div className="mainmenu">
         <nav className="navbar navbar-expand-lg">
           <NavItemContainer>
             {navItems.map((navItem, i) => (
-              <NavItem key={i} navItem={navItem} />
+              <>
+                {navItem.allowedRoles.includes(role) && (
+                  <NavItem key={i} navItem={navItem} />
+                )}
+              </>
             ))}
           </NavItemContainer>
         </nav>
