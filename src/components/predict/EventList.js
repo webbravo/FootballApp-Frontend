@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFutbol } from "@fortawesome/free-solid-svg-icons";
 import { EventContext } from "../../context/EventContext";
-import { publicFetch } from "../../util/fetch";
 import { useEffect } from "react";
+import { FetchContext } from "../../context/FetchContext";
 
 function EventList() {
   const eventContext = useContext(EventContext);
+
   return (
     <div className="sports-list">
       {eventContext.leagues.map((league, index, arr) => {
@@ -32,13 +33,15 @@ const EventTitle = ({ league }) => {
 };
 
 const SingleEventBox = ({ league_id }) => {
+  const { authAxios } = useContext(FetchContext);
+
   // TODO: Move Get
 
   const [events, setEvent] = useState([]);
 
   useEffect(() => {
     async function fetchEventData() {
-      const { data } = await publicFetch.get(
+      const { data } = await authAxios.get(
         `/rapidapi/odds/league/${league_id}`
       );
       setEvent(data);

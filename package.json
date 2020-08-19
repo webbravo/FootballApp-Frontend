@@ -30,8 +30,8 @@
     "yup": "^0.28.5"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "server": "node server.js",
+    "server": "react-scripts start",
+    "start": "node server.js",
     "dev": "PORT=5000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -55,6 +55,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": "https://tendollarpredict.herokuapp.com:6700"
+  }
 }
