@@ -3,6 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import Logo from "../assets/img/logo.png";
 import { Link } from "react-router-dom";
 import Hyperlink from "../components/common/Hyperlink";
+import { TitleComponent } from "../components/common/TitleComponent";
 
 const Banner = () => {
   const authContext = useContext(AuthContext);
@@ -81,7 +82,12 @@ const Banner = () => {
 };
 
 const Home = () => {
-  return <Banner />;
+  return (
+    <>
+      <TitleComponent title={""} />
+      <Banner />
+    </>
+  );
 };
 
 export default Home;
