@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Hyperlink from "../components/common/Hyperlink";
 import { TitleComponent } from "../components/common/PageTitle";
 
+
 const Banner = () => {
   const authContext = useContext(AuthContext);
   return (
@@ -89,7 +90,12 @@ const Banner = () => {
 };
 
 const Home = () => {
-  return <Banner />;
+  return (
+    <>
+      <TitleComponent title={""} />
+      <Banner />
+    </>
+  );
 };
 
 export default Home;
