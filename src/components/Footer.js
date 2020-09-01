@@ -59,7 +59,9 @@ const Footer = () => {
           <div className="row justify-content-between">
             <div className="col-xl-2 col-lg-4 col-md-10">
               <div className="about-widget">
-                <img src={Logo} alt="10 Dollar predict logo" />
+                <Link className="logo" to={"/"}>
+                  <img src={Logo} alt="10 Dollar predict logo" />
+                </Link>
               </div>
             </div>
             <div className="col-xl-4 col-lg-4 col-md-6">

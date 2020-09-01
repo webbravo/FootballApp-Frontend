@@ -1,10 +1,14 @@
 import React, { useContext } from "react";
 import { EventContext } from "../../context/EventContext";
 
-// import { Form, Formik } from "formik"; country
+const FormSelectorCountry = () => {
+  const { defaultCountry, setDefaultCountry, countries } = useContext(
+    EventContext
+  );
 
-const FormSelectorCountry = ({ countries, handleChange }) => {
-  const { defaultCountry } = useContext(EventContext);
+  function changeCountry(e) {
+    setDefaultCountry(e.target.value);
+  }
 
   return (
     <div className="col-xl-3 col-lg-3 col-md-3">
@@ -12,8 +16,7 @@ const FormSelectorCountry = ({ countries, handleChange }) => {
         <select
           className="form-control"
           defaultValue={defaultCountry}
-          value={defaultCountry}
-          onChange={handleChange}
+          onChange={(e) => changeCountry(e)}
         >
           {countries.map((country, index, arr) => (
             <option value={country.country} key={index}>
@@ -28,10 +31,12 @@ const FormSelectorCountry = ({ countries, handleChange }) => {
 };
 
 const FormSelectorLeague = ({ leagues }) => {
+  const handleChange = () => {};
+  console.log(leagues);
   return (
     <div className="col-xl-3 col-lg-3 col-md-3">
       <div className="form-group">
-        <select className="form-control">
+        <select className="form-control" onChange={handleChange}>
           {leagues.map((league, index, arr) => (
             <option key={league.league_id}>{league.name}</option>
           ))}
@@ -57,20 +62,13 @@ const FormSelector = ({ options }) => {
   );
 };
 
-const LeagueSelector = ({ leagues, countries }) => {
-  const getSelectedCountry = (option) => {
-    console.log(option);
-  };
-
+const LeagueSelector = ({ leagues, countries, changeCountry }) => {
   return (
     <div className="filter-menu">
       <div className="row justify-content-center">
         <FormSelector options={["Today", "Yesterday", "June 12th 2020"]} />
 
-        <FormSelectorCountry
-          onChange={getSelectedCountry}
-          countries={countries}
-        />
+        <FormSelectorCountry />
 
         <FormSelectorLeague leagues={leagues} />
       </div>
