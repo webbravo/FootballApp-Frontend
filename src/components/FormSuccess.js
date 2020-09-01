@@ -5,7 +5,7 @@ function FormSuccess({ text }) {
 
   if (show) {
     return (
-      <div class="alert alert-success" role="alert">
+      <div className="alert alert-success" role="alert">
         {text}
       </div>
     );

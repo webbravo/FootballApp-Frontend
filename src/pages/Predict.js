@@ -6,12 +6,18 @@ import EventList from "../components/predict/EventList";
 import { EventContext, EventProvider } from "../context/EventContext";
 
 const EventGroupTable = () => {
-  const { leagues, countries } = useContext(EventContext);
+  const { leagues, countries, changeCountry, defaultCountry } = useContext(
+    EventContext
+  );
 
   return (
     <div className="betting-table">
       <Suspense fallback={<div>Loading...</div>}>
-        <LeagueSelector leagues={leagues} countries={countries} />
+        <LeagueSelector
+          leagues={leagues}
+          countries={countries}
+          changeCountry={changeCountry}
+        />
 
         <div className="row justify-content-center">
           <div className="col-xl-10 col-lg-10">
@@ -24,7 +30,7 @@ const EventGroupTable = () => {
               >
                 <>
                   <LeagueTitle
-                    country={"leagues"}
+                    country={defaultCountry}
                     numFixtures={leagues.length}
                   />
                   <EventList />

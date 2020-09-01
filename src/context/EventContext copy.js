@@ -11,7 +11,7 @@ const EventProvider = ({ children }) => {
   const [countries, setCountries] = useState([]);
   const [leagues, setLeagues] = useState([]);
   const [event] = useState([]);
-  const [defaultCountry, setDefaultCountry] = useState("Australia");
+  const [defaultCountry, setDefaultCountry] = useState("England");
 
   useEffect(() => {
     authAxios.CancelToken = axios.CancelToken;
@@ -20,7 +20,9 @@ const EventProvider = ({ children }) => {
 
     // TODO: Create an IIFE
     async function getCountries() {
-      const { data } = await authAxios.get("/rapidapi/countries");
+      const { data } = await authAxios.get("/rapidapi/countries", {
+        cancelToken: authAxios.source.token,
+      });
       setCountries(data.countries);
     }
     getCountries();
@@ -35,8 +37,11 @@ const EventProvider = ({ children }) => {
         setLeagues(data["data"]);
       }
     }
-
     getLeaguesByCountry();
+
+    return () => {
+      authAxios.source.cancel();
+    };
   }, [authAxios, defaultCountry]);
 
   return (
@@ -44,6 +49,7 @@ const EventProvider = ({ children }) => {
       value={{
         countries,
         leagues,
+        setDefaultCountry,
         setDefaultCountry,
         defaultCountry,
         event,

@@ -107,7 +107,11 @@ const NavbarTop = ({ lang }) => {
 
                 {authContext.isAuthenticated() ? (
                   <li>
-                    <Link className="link" onClick={authContext.logout}>
+                    <Link
+                      to={"#"}
+                      className="link"
+                      onClick={authContext.logout}
+                    >
                       <FontAwesomeIcon icon={faSignOutAlt} />
                       <p className="ml-2">Log Out</p>
                     </Link>
