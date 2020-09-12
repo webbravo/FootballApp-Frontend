@@ -7,46 +7,41 @@ const { Provider } = EventContext;
 
 const EventProvider = ({ children }) => {
   const { authAxios } = useContext(FetchContext);
-
   const [countries, setCountries] = useState([]);
-  const [leagues, setLeagues] = useState([]);
-  const [event] = useState([]);
-  const [defaultCountry, setDefaultCountry] = useState("Australia");
+  const [results, setResults] = useState([]);
+  const [fixtures, setFixtures] = useState([]);
+  const [defaultCountry, setDefaultCountry] = useState();
 
   useEffect(() => {
+    let mounted = true;
+
     authAxios.CancelToken = axios.CancelToken;
     authAxios.isCancel = axios.isCancel;
     authAxios.source = authAxios.CancelToken.source();
 
-    // TODO: Create an IIFE
-    async function getCountries() {
-      const { data } = await authAxios.get("/rapidapi/countries");
-      setCountries(data.countries);
-    }
-    getCountries();
-
-    async function getLeaguesByCountry() {
-      const { data } = await authAxios.get(
-        `/rapidapi/leagues/country/${defaultCountry}`
-      );
-      if (data["data"] === undefined) {
-        setLeagues(data);
-      } else {
-        setLeagues(data["data"]);
+    // Get the live Matches for today
+    async function getTodayFixture() {
+      const { data } = await authAxios.get("/rapidAPI/fixtures/today");
+      if (mounted) {
+        setCountries(data.countries);
+        setResults(data.results);
       }
     }
+    getTodayFixture();
 
-    getLeaguesByCountry();
-  }, [authAxios, defaultCountry]);
-
+    return () => {
+      mounted = false;
+    };
+  }, [authAxios]);
   return (
     <Provider
       value={{
         countries,
-        leagues,
-        setDefaultCountry,
         defaultCountry,
-        event,
+        setDefaultCountry,
+        results,
+        fixtures,
+        setFixtures,
       }}
     >
       {children}
