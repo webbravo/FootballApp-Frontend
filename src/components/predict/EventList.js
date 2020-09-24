@@ -10,6 +10,8 @@ function EventList() {
   // Get Fixtures from the Default Country
   const fixtures = countries[defaultCountry];
 
+  // addToB;
+
   return (
     <div className="sports-list">
       <SingleEventBox fixtures={fixtures} defaultCountry={defaultCountry} />

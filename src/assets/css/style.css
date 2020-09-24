@@ -1556,19 +1556,24 @@ ul {
   top: 0;
   width: 100%;
   height: 100%;
-  background: -webkit-linear-gradient(290deg, #3081fd, #007bff);
+  /* background: -webkit-linear-gradient(290deg, #3081fd, #007bff);
   background: -o-linear-gradient(290deg, #3081fd, #007bff);
-  background: linear-gradient(160deg, #3081fd, #007bff);
+  background: linear-gradient(160deg, #3081fd, #007bff); */
   z-index: -1;
   -webkit-transition: all 0.3s ease-in;
   -moz-transition: all 0.3s ease-in;
   -o-transition: all 0.3s ease-in;
   transition: all 0.3s ease-in;
   opacity: 0;
+  color: #3081fd;
+}
+
+.betting-table .sports-list .single-sport-box .btn-group,
+.btn-group-vertical {
+  display: block;
 }
 
 .betting-table .bet-tab-content .tab-pane .sports-list .single-sport-box .part-match .single-place-to-bet a:hover {
-  color: #fff;
   opacity: 1;
   border-color: #3081fd;
 }

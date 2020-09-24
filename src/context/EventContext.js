@@ -10,7 +10,7 @@ const EventProvider = ({ children }) => {
   const [countries, setCountries] = useState([]);
   const [results, setResults] = useState([]);
   const [fixtures, setFixtures] = useState([]);
-  const [defaultCountry, setDefaultCountry] = useState();
+  const [defaultCountry, setDefaultCountry] = useState("");
 
   useEffect(() => {
     let mounted = true;
@@ -27,12 +27,22 @@ const EventProvider = ({ children }) => {
         setResults(data.results);
       }
     }
+
+    // Get fixture for today
     getTodayFixture();
+
+    // Set LocalStorage Prediction
+    const prediction = {
+      code: "bskfksnf",
+      outcomes: [],
+    };
+    localStorage.setItem("prediction", JSON.stringify(prediction));
 
     return () => {
       mounted = false;
     };
   }, [authAxios]);
+
   return (
     <Provider
       value={{

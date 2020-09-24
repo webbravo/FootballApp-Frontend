@@ -46,7 +46,7 @@ const LeagueSelector = ({
   return (
     <div className="filter-menu">
       <div className="row justify-content-center">
-        <FormSelectorDate options={["Today", "Yesterday", "June 12th 2020"]} />
+        <FormSelectorDate options={["Today", "Yesterday"]} />
 
         <FormSelectorCountry
           changeCountry={changeCountry}

@@ -7,12 +7,9 @@ import { EventContext, EventProvider } from "../context/EventContext";
 
 import { TitleComponent } from "../components/common/TitleComponent";
 const EventGroupTable = () => {
-  const {
-    leagues,
-    countries,
-    defaultCountry,
-    setDefaultCountry,
-  } = useContext(EventContext);
+  const { leagues, countries, defaultCountry, setDefaultCountry } = useContext(
+    EventContext
+  );
 
   // Set Countries into an array
   const countriesArray = Object.keys(countries);
@@ -22,7 +19,9 @@ const EventGroupTable = () => {
       setDefaultCountry(countriesArray[0]);
     } else {
       // Set to the first country on the list of Countries
-      setDefaultCountry(e.target.value);
+      const country = e.target.value;
+      setDefaultCountry(country);
+      localStorage.setItem("defaultCountry", country);
     }
   };
 
@@ -55,6 +54,8 @@ const EventGroupTable = () => {
     </div>
   );
 };
+
+// const BetSlip
 
 const Predict = () => (
   <AppContainer>
