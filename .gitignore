@@ -21,3 +21,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+# Copied files
+/src/components/predict/SingleEventBox copy.js
