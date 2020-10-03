@@ -131,6 +131,7 @@ const MatchesBox = ({ outcomes, fixture_id }) => {
                   fixtureId: fixture_id,
                   odd: value.odd,
                   label_name,
+                  label_id,
                   value: value.value,
                 });
                 return (
