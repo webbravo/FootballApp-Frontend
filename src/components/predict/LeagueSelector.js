@@ -10,7 +10,7 @@ const FormSelectorCountry = ({ changeCountry, defaultCountry, countries }) => {
           onChange={(e) => changeCountry(e)}
         >
           <option value="">Pick a country</option>
-          {countries.map((country, index, arr) => (
+          {countries.sort().map((country, index, arr) => (
             <option value={country} key={index}>
               {country}
             </option>

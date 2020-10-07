@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFutbol } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
@@ -7,26 +6,36 @@ import { FetchContext } from "../../context/FetchContext";
 import axios from "axios";
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import TeamBox from "./TeamBox";
-import { ToggleButtonGroup, ToggleButton } from "react-bootstrap";
+import { genCode } from "../../util";
 
-const SingleEventBox = ({ fixtures, defaultCountry }) => {
+const SingleEventBox = ({ onChangeValue, fixtures, defaultCountry }) => {
   return (
     <>
       {defaultCountry ? (
         fixtures.map((fixture, index) => {
+          const {
+            event_timestamp,
+            fixture_id,
+            awayTeam,
+            league,
+            homeTeam,
+          } = fixture;
+
           return (
             <React.Fragment key={index}>
-              <EventTitle league={fixture.league} />
+              <EventTitle league={league} />
               <div key={index} className="single-sport-box row">
                 <div className="part-icon col-md-2">
                   <FontAwesomeIcon icon={faFutbol} />
                 </div>
 
-                <TeamBox
-                  homeTeam={fixture.homeTeam}
-                  awayTeam={fixture.awayTeam}
+                <TeamBox homeTeam={homeTeam} awayTeam={awayTeam} />
+
+                <OutcomeBox
+                  onChangeValue={onChangeValue}
+                  timestamp={event_timestamp}
+                  fixture_id={fixture_id}
                 />
-                <OutcomeBox fixture_id={fixture.fixture_id} />
               </div>
             </React.Fragment>
           );
@@ -44,7 +53,7 @@ const SingleEventBox = ({ fixtures, defaultCountry }) => {
   );
 };
 
-const OutcomeBox = ({ fixture_id }) => {
+const OutcomeBox = ({ onChangeValue, timestamp, fixture_id }) => {
   const { authAxios } = useContext(FetchContext);
   const [outcomes, setOutcomes] = useState([]);
   const [results, setResults] = useState(0);
@@ -66,59 +75,29 @@ const OutcomeBox = ({ fixture_id }) => {
     getOutcomes();
   }, [authAxios, fixture_id]);
 
-  return <>{results > 0 ? <MatchesBox {...{ outcomes, fixture_id }} /> : ""}</>;
+  return <MatchesBox {...{ outcomes, fixture_id, timestamp, onChangeValue }} />;
 };
 
-const addSelection = (selectedOutcome) => {
-  // TODO: Optimization Code and encapsulate
-  const { code, outcomes } = JSON.parse(localStorage.getItem("prediction"));
+const MatchesBox = ({ outcomes, fixture_id, timestamp, onChangeValue }) => {
+  // Know the active radio button
+  const [activeButton, setActiveButton] = useState();
 
-  let matchExists = outcomes.find(
-    (d) => d.fixtureId === selectedOutcome.fixtureId
-  );
-
-  if (matchExists !== undefined) {
-    //delete the current match
-    outcomes.splice(outcomes.indexOf(matchExists), 1);
-    outcomes.push(selectedOutcome);
-
-    localStorage.setItem(
-      "prediction",
-      JSON.stringify({
-        code,
-        outcomes,
-      })
-    );
-  } else {
-    outcomes.push(selectedOutcome);
-
-    localStorage.setItem(
-      "prediction",
-      JSON.stringify({
-        code,
-        outcomes,
-      })
-    );
-  }
-};
-
-const MatchesBox = ({ outcomes, fixture_id }) => {
-  const onChangeValue = (event) => {
+  const handleChange = (event) => {
     const selectedOutcome = JSON.parse(event.target.value);
 
-    // See what is selected
-    console.log(selectedOutcome);
+    // Set the Selected radio to state
+    setActiveButton(selectedOutcome.fixtureId);
 
     // Add Outcome selection
-    addSelection(selectedOutcome);
+    onChangeValue(selectedOutcome);
   };
 
   return (
-    <div onChange={onChangeValue}>
+    <div onChange={handleChange}>
       {outcomes.map((outcome, index, arr) => {
         const { label_name, label_id, values } = outcome;
         return values ? (
-          <div className="part-match">
+          <div key={index} className="part-match">
             <div>
               <br />
               <strong className="text-center">
@@ -127,18 +106,32 @@ const MatchesBox = ({ outcomes, fixture_id }) => {
             </div>
             <div>
               {values.map((value, index, arr) => {
+                // Set the labelId for Radio
+                const labelId = genCode(
+                  `${fixture_id}_${label_name}_${index}_${label_id}`
+                );
+
                 const data = JSON.stringify({
                   fixtureId: fixture_id,
+                  label_id,
                   odd: value.odd,
                   label_name,
                   value: value.value,
+                  timestamp,
                 });
+
                 return (
-                  <>
-                    <input type="radio" value={data} name={fixture_id} />
-                    {value.value}
+                  <React.Fragment key={index}>
+                    <input
+                      id={labelId}
+                      type="radio"
+                      value={data}
+                      name={fixture_id}
+                      defaultChecked={activeButton === fixture_id}
+                    />
+                    <label htmlFor={labelId}>{value.value}</label>
                     <br />
-                  </>
+                  </React.Fragment>
                 );
               })}
             </div>
@@ -147,34 +140,6 @@ const MatchesBox = ({ outcomes, fixture_id }) => {
           <p>NO ODDS FIXTURE</p>
         );
       })}
-    </div>
-  );
-};
-
-const BetButton = ({ value, index, label_name, onClickBtn }) => {
-  const [isActive, setActive] = useState(false);
-
-  const clicked = () => {
-    isActive === true ? setActive(false) : setActive(true);
-    onClickBtn(value.value);
-  };
-
-  const id = `${label_name}_${index}`;
-  return (
-    <div className="single-place-to-bet">
-      {
-        <Link
-          id={id}
-          value={value}
-          type="button"
-          onClick={clicked}
-          className={isActive && "active"}
-          to="#"
-        >
-          <span className="bet-price">{value.odd}</span>
-          <span className="result-for-final">{value.value}</span>
-        </Link>
-      }
     </div>
   );
 };
