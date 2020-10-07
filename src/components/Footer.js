@@ -120,57 +120,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="row">
-            <div className="container">
-              <div className="row">
-                <div className="col-xl-12 col-lg-12">
-                  <div className="payment-method">
-                    <h6 className="payment-method-title">
-                      Payment methods are We accept
-                    </h6>
-                    <div className="all-method">
-                      <div className="single-method">
-                        <img
-                          src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png"
-                          alt="Mastercard logo"
-                        />
-                      </div>
-                      <div className="single-method">
-                        <img
-                          src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/363_Visa_Credit_Card_logo-512.png"
-                          alt="Visa Logo"
-                        />
-                      </div>
-                      <div className="single-method">
-                        <img
-                          src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Bsv-icon-small.png"
-                          alt="Bitcion logo"
-                        />
-                      </div>
-                      <div className="single-method">
-                        <img
-                          src="https://upload.wikimedia.org/wikipedia/commons/2/23/Verve_Image.png"
-                          alt="verve Card"
-                        />
-                      </div>
-                      <div className="single-method">
-                        <img
-                          src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Zenith_Bank_Logo.svg/1200px-Zenith_Bank_Logo.svg.png"
-                          alt="Zenith Bank Logo"
-                        />
-                      </div>
-                      <div className="single-method">
-                        <img
-                          src="https://www.mutiuokediran.com/blog/wp-content/uploads/2015/05/GTBank.jpg"
-                          alt="GTBank Logo"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
 

@@ -32,11 +32,13 @@ const EventProvider = ({ children }) => {
     getTodayFixture();
 
     // Set LocalStorage Prediction
-    const prediction = {
-      code: "bskfksnf",
-      outcomes: [],
-    };
-    localStorage.setItem("prediction", JSON.stringify(prediction));
+    if (!JSON.parse(localStorage.getItem("prediction"))) {
+      const prediction = {
+        code: "bskfksnf",
+        outcomes: [],
+      };
+      localStorage.setItem("prediction", JSON.stringify(prediction));
+    }
 
     return () => {
       mounted = false;
