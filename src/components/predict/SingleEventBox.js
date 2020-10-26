@@ -81,65 +81,63 @@ const OutcomeBox = ({ onChangeValue, timestamp, fixture_id }) => {
 const MatchesBox = ({ outcomes, fixture_id, timestamp, onChangeValue }) => {
   // Know the active radio button
   const [activeButton, setActiveButton] = useState();
-
   const handleChange = (event) => {
     const selectedOutcome = JSON.parse(event.target.value);
-
     // Set the Selected radio to state
     setActiveButton(selectedOutcome.fixtureId);
-
     // Add Outcome selection
     onChangeValue(selectedOutcome);
   };
-
   return (
     <div onChange={handleChange}>
-      {outcomes.map((outcome, index, arr) => {
-        const { label_name, label_id, values } = outcome;
-        return values ? (
-          <div key={index} className="part-match">
-            <div>
-              <br />
-              <strong className="text-center">
-                <p label_id={label_id}>{label_name}</p>
-              </strong>
+      {outcomes.length > 0 ? (
+        outcomes.map((outcome, index, arr) => {
+          const { label_name, label_id, values } = outcome;
+          return values ? (
+            <div key={index} className="part-match">
+              <div>
+                <br />
+                <strong className="text-center">
+                  <p label_id={label_id}>{label_name}</p>
+                </strong>
+              </div>
+              <div>
+                {values.map((value, index, arr) => {
+                  // Set the labelId for Radio
+                  const labelId = genCode(
+                    `${fixture_id}_${label_name}_${index}_${label_id}`
+                  );
+                  const data = JSON.stringify({
+                    fixtureId: fixture_id,
+                    label_id,
+                    odd: value.odd,
+                    label_name,
+                    value: value.value,
+                    timestamp,
+                  });
+                  return (
+                    <React.Fragment key={index}>
+                      <input
+                        id={labelId}
+                        type="radio"
+                        value={data}
+                        name={fixture_id}
+                        defaultChecked={activeButton === fixture_id}
+                      />
+                      <label htmlFor={labelId}>{value.value}</label>
+                      <br />
+                    </React.Fragment>
+                  );
+                })}
+              </div>
             </div>
-            <div>
-              {values.map((value, index, arr) => {
-                // Set the labelId for Radio
-                const labelId = genCode(
-                  `${fixture_id}_${label_name}_${index}_${label_id}`
-                );
-
-                const data = JSON.stringify({
-                  fixtureId: fixture_id,
-                  label_id,
-                  odd: value.odd,
-                  label_name,
-                  value: value.value,
-                  timestamp,
-                });
-
-                return (
-                  <React.Fragment key={index}>
-                    <input
-                      id={labelId}
-                      type="radio"
-                      value={data}
-                      name={fixture_id}
-                      defaultChecked={activeButton === fixture_id}
-                    />
-                    <label htmlFor={labelId}>{value.value}</label>
-                    <br />
-                  </React.Fragment>
-                );
-              })}
-            </div>
-          </div>
-        ) : (
-          <p>NO ODDS FIXTURE</p>
-        );
-      })}
+          ) : (
+            <p>NO ODDS FIXTURE</p>
+          );
+        })
+      ) : (
+        <p>NO ODDS FIXTURE</p>
+      )}
     </div>
   );
 };

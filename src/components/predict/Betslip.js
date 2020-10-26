@@ -1,8 +1,10 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import moment from "moment";
+import { FetchContext } from "../../context/FetchContext";
 
 export function Betslip({ selectedOutcome, setOutcomes }) {
+  const { authAxios } = useContext(FetchContext);
   const [betSuccess, setBetSuccess] = useState();
   const [betError, setBetError] = useState();
   const [placeBetLoading, setPlaceBetLoading] = useState(false);
@@ -13,26 +15,42 @@ export function Betslip({ selectedOutcome, setOutcomes }) {
   const submitBetslip = async () => {
     if (!isBetslipFull()) {
       alert("Bet slip is not up to 10 games");
+      setBetError("Bet slip is not up to 10 games");
     } else {
       try {
         // Set loading to true
         setPlaceBetLoading(true);
 
         // Upload the Betslip to backend
-        // -- const { data } = await publicFetch.post("/prediction/placeBet", validOutcomes);
+        const { data } = await authAxios.post("/prediction/create", {
+          code: "bskfksnf",
+          outcomes: validOutcomes,
+        });
 
-        // Set the success message
-        // -- setBetSuccess(data.message);
+        const { success, error } = data;
 
-        // Clear the Prediction BetSlip
-        // -- clearBetslip();
+        if (!error && success) {
+          // Set the success message
+          setBetSuccess(data.message);
+          setBetError("");
 
-        setTimeout(() => {
-          setPlaceBetLoading(false);
-        }, 1000);
-      } catch (error) {}
+          // Clear the Prediction BetSlip
+          clearBetslip();
 
-      // Upload bet slip to backend
+          setTimeout(() => {
+            setPlaceBetLoading(false);
+          }, 1000);
+        } else {
+          throw new Error(data.message);
+        }
+      } catch (error) {
+        console.log(error);
+        const { message } = error;
+        setBetError(message);
+        setBetSuccess(null);
+        // Set loading to false
+        setPlaceBetLoading(false);
+      }
     }
   };
 
@@ -134,14 +152,9 @@ export function updateBetSlip(code, outcomes) {
 
 export function isBetslipFull() {
   const { outcomes } = JSON.parse(localStorage.getItem("prediction"));
-  console.log(outcomes.length);
   if (outcomes.length === 10 || outcomes.length > 10) {
     return true;
   }
 
   return false;
 }
-
-const uploadBetslip = () => {
-  alert("Send to the back end");
-};

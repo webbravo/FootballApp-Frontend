@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 
@@ -23,14 +23,15 @@ const FetchProvider = ({ children }) => {
     }
   );
 
-  // useEffect(() => {
-  //   const getCsrfToken = async () => {
-  //     const { data } = await authAxios.get("/api/csrf-token");
-  //     authAxios.defaults.headers["X-CSRF-Token"] = data.csrfToken;
-  //   };
+  useEffect(() => {
+    const getCsrfToken = async () => {
+      const { data } = await authAxios.get("/csrf-token");
+      authAxios.defaults.headers["X-CSRF-Token"] = data.csrfToken;
+      console.log(data.csrfToken);
+    };
 
-  //   getCsrfToken();
-  // }, [authAxios]);
+    getCsrfToken();
+  }, [authAxios]);
 
   return (
     <Provider
