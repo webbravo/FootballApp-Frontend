@@ -13,13 +13,8 @@ const SingleEventBox = ({ onChangeValue, fixtures, defaultCountry }) => {
     <>
       {defaultCountry ? (
         fixtures.map((fixture, index) => {
-          const {
-            event_timestamp,
-            fixture_id,
-            awayTeam,
-            league,
-            homeTeam,
-          } = fixture;
+          const { event_timestamp, fixture_id, awayTeam, league, homeTeam } =
+            fixture;
 
           return (
             <React.Fragment key={index}>
@@ -56,6 +51,7 @@ const SingleEventBox = ({ onChangeValue, fixtures, defaultCountry }) => {
 const OutcomeBox = ({ onChangeValue, timestamp, fixture_id }) => {
   const { authAxios } = useContext(FetchContext);
   const [outcomes, setOutcomes] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [results, setResults] = useState(0);
 
   useEffect(() => {

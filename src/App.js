@@ -1,6 +1,7 @@
 import React, { lazy, Suspense, useContext } from "react";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import FourOFour from "./pages/FourOFour";
 import Home from "./pages/Home";
@@ -8,6 +9,7 @@ import "./App.css";
 import { AuthProvider, AuthContext } from "./context/AuthContext";
 import { FetchProvider } from "./context/FetchContext";
 import { EventProvider } from "./context/EventContext";
+
 
 import {
   BrowserRouter as Router,
@@ -42,6 +44,9 @@ const AppRoutes = () => {
         </Route>
         <Route path="/signup">
           <Signup />
+        </Route>
+        <Route path="/register">
+          <Register />
         </Route>
         <Route exact path="/live-feed">
           <LiveFeed />

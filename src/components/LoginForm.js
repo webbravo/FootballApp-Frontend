@@ -26,10 +26,7 @@ const Login = () => {
   const submitCredentials = async (credentials) => {
     try {
       setLoginLoading(true);
-      const { data } = await publicFetch.post(
-        "/users/authenticate",
-        credentials
-      );
+      const { data } = await publicFetch.post("/users/login", credentials);
       authContext.setAuthState(data);
       setLoginSuccess(data.message);
       setLoginError("");
@@ -48,7 +45,7 @@ const Login = () => {
 
   return (
     <>
-      {redirectOnLogin && <Redirect to="/predict" />}
+      {redirectOnLogin && <Redirect to="/profile" />}
       <div className="login">
         <div className="container">
           <div className="row justify-content-center">
